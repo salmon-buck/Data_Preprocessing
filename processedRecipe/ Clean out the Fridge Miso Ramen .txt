@@ -1,0 +1,8 @@
+ Clean out the Fridge Miso Ramen 
+restaur,qualiti,ramen,made,home,min,start,finish,quick,easi,good,load,veggi
+ japanese 
+ounc,packag,nissin,raoh,umami,miso,flavor,cup,babi,spinach,cup,corn,kernel,frozen,can,roast,carrot,grate,tablespoon,sriracha,option,green,onion,thin,slice,teaspoon,black,sesam,seed
+ 1 : Cook ramen according to package instructions. 2 : Stir in baby spinach, corn, carrot and Sriracha until the spinach has wilted, about 2 minutes. 3 : Serve immediately, garnished with green onions and sesame seeds, if desired. 
+ 10min 
+ https://s23209.pcdn.co/wp-content/uploads/2015/10/IMG_6491edit.jpg
+
