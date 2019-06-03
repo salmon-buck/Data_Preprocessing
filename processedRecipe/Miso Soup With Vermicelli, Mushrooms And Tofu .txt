@@ -1,8 +1,8 @@
  Miso Soup With Vermicelli, Mushrooms And Tofu 
-copious,amount,mushroom,spinach,tofu,vermicelli,sure,way,keep,warm,comfort,cold,winter,day
- Asian 
-cup,veget,stock,tablespoon,soy,sauc,tablespoon,mirin,tablespoon,sake,pinch,sugar,tablespoon,miso,past,ounc,packag,firm,tofu,cube,ounc,shiitak,mushroom,thin,slice,ounc,enoki,mushroom,ounc,vermicelli,cup,babi,spinach,hard,boil,egg,quarter,serv,red,kamaboko,steam,fish,cake,thin,slice,serv,togarashi,japanes,chili,pepper,serv
- 1 : Heat a large stockpot or Dutch oven over medium heat. Add vegetable stock, soy sauce, mirin, sake and sugar, whisking to combine. Bring to a boil and stir in miso paste until dissolved, about 1-2 minutes. 2 : Add tofu, mushrooms and vermicelli, reduce heat and simmer until noodles are cooked through, about 4-6 minutes. Stir in spinach until wilted, about 1 minute. 3 : Serve immediately, garnished with hard boiled egg, fish cake and Japanese chili pepper, if desired. 
+asian
+ 4 cups vegetable stock \ 2 tablespoons soy sauce \ 1 tablespoon mirin \ 1 tablespoon sake \ Pinch of sugar \ 1 tablespoon miso paste \ 1 (12-ounce) package firm tofu, cubed \ 3 ounces shiitake mushrooms, thinly sliced \ 2 ounces enoki mushrooms \ 4 ounces vermicelli \ 2 cups baby spinach \ 1 hard boiled egg, quartered, for serving \ Red kamaboko (steamed fish cake), thinly sliced, for serving \ Togarashi (Japanese chili pepper), for serving 
+heat,larg,stockpot,dutch,oven,medium,heat,add,veget,stock,soy,sauc,mirin,sake,sugar,whisk,combin,bring,boil,stir,miso,past,dissolv,minut,add,tofu,mushroom,vermicelli
+ reduce heat and simmer until noodles are cooked through, about 4-6 minutes. Stir in spinach until wilted, about 1 minute. 3 : Serve immediately, garnished with hard boiled egg, fish cake and Japanese chili pepper, if desired. 
  10min 
  https://s23209.pcdn.co/wp-content/uploads/2013/02/IMG_3640-360x360.jpg
 
