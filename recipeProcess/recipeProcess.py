@@ -111,12 +111,10 @@ f.close()
 collection_prob={}
 collection_prob=prob_at_collection(total_wordset, total_wordlist)                     # P(t|Mc)
 
-print("콜렉션 확률 : ", collection_prob)
-print("tf : ", term_freq)
 
 smoothing_prob={}
 smoothing_prob=smoothing(term_freq, collection_prob)
-print(smoothing_prob)
+
 
 ############################################################ 엑셀 DB ############################################################
 
