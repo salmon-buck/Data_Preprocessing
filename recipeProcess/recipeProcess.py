@@ -1,9 +1,10 @@
 import os
 from openpyxl import Workbook
-from .preProcessing import preProcessing
+from Data_Preprocessing.recipeProcess.preProcessing import preProcessing
+import copy
 
 alpha=50
-
+beta=0.2
 def tf_at_document(string) :
     term_freq={}
     word_list=string.split()
@@ -20,17 +21,25 @@ def prob_at_collection(total_wordset, total_wordlist) :     # P(t|Mc)
         collection_prob[w] = total_wordlist.count(w)/length
     return collection_prob
 
-def smoothing(term_freq, collection_prob) :
+def smoothing(t_f, t_f2, collection_prob) :
     smoothing_prob={}
+    term_freq=copy.deepcopy(t_f)
+    term_freq2=copy.deepcopy(t_f2)
     for food in term_freq.keys() :
         dic = {}
         length=sum(term_freq[food].values())
+        length2=sum(term_freq2[food].values())
 
-        for word in term_freq[food] :
+        for word in term_freq[food].keys() :
             dic[word]=(term_freq[food][word] + alpha*collection_prob[word]) / (length+alpha)
+            if word in term_freq2[food].keys() :
+                dic[word]+=(term_freq2[food][word] + alpha * collection_prob[word]) / (length2 + alpha) * beta
+                del term_freq2[food][word]
+
+        for w in term_freq2[food].keys() :
+            dic[w] = (term_freq2[food][w] + alpha * collection_prob[w]) / (length2 + alpha) * beta
 
         smoothing_prob[food]=dic
-
     return smoothing_prob
 
 
@@ -77,6 +86,7 @@ f = open('recipe.txt', 'rt', encoding='UTF8')
 list = []
 db = {}
 term_freq = {}
+term_freq2={}
 total_wordset=set()
 total_wordlist=[]
 for i in range(100):
@@ -86,25 +96,27 @@ for i in range(100):
     lines = line.split(';')
     # print(i)
 
-    rname = lines[1]
-    rname = str.strip(rname)
-    description = preProcessing(lines[2])
-    ingredient = preProcessing(lines[4])
+    rname = str.strip(lines[1])
+    #rname = ' '.join(preProcessing(str.strip(rname)))
+
+    #description = preProcessing(lines[2])
+    #ingredient = preProcessing(lines[4])
 
     dic['name'] = rname
-    dic['description'] = ' '.join(description)
+    dic['description'] = str.strip(lines[2])
     dic['country'] = str.strip(lines[3])
-    dic['ingredient'] = ' '.join(ingredient)
+    dic['ingredient'] = str.strip(lines[4])
     dic['recipe'] = str.strip(lines[5])
     dic['time'] = str.strip(lines[6])
     dic['ImageUrl'] = str.strip(lines[7])
     db[rname] = dic
 
-    dec_ing_rcp = dic['description'] + dic['ingredient'] + ' '.join(preProcessing(dic['recipe']))
+    dec_ing_rcp = ' '.join(preProcessing(dic['name'])) + ' ' +  ' '.join(preProcessing(dic['description'])) + ' ' + ' '.join(preProcessing(dic['ingredient']))
     term_freq[rname] = tf_at_document(dec_ing_rcp)
+    term_freq2[rname] = tf_at_document(' '.join(preProcessing(dic['recipe'])))
 
-    total_wordset = total_wordset.union(dec_ing_rcp.split())
-    total_wordlist.extend(dec_ing_rcp.split())
+    total_wordset = total_wordset.union((dec_ing_rcp+' ' + ' '.join(preProcessing(dic['recipe']))).split())
+    total_wordlist.extend((dec_ing_rcp+' ' + ' '.join(preProcessing(dic['recipe']))).split())
 
 f.close()
 
@@ -113,7 +125,7 @@ collection_prob=prob_at_collection(total_wordset, total_wordlist)               
 
 
 smoothing_prob={}
-smoothing_prob=smoothing(term_freq, collection_prob)
+smoothing_prob=smoothing(term_freq, term_freq2, collection_prob)
 
 
 ############################################################ 엑셀 DB ############################################################
@@ -151,9 +163,11 @@ for word in db :                                                                
     count+=1
 
 count=1
+cnt=1
 for food in term_freq.keys() :                                                    # P(t|d) & Smoothing 시트
     sheets[1].cell(count, 1, food)
     sheets[3].cell(count, 1, food)
+
     for word in term_freq[food].keys() :
         sheets[1].cell(count, 2, word)
         sheets[1].cell(count, 3, term_freq[food][word])
@@ -162,6 +176,16 @@ for food in term_freq.keys() :                                                  
         count+=1
 
     count+=1
+    for w in term_freq2[food].keys() :
+        sheets[1].cell(cnt, 4, w)
+        sheets[1].cell(cnt, 5, term_freq2[food][w])
+        cnt += 1
+
+    cnt+=1
+    if count>cnt :
+        cnt=count
+    else :
+        count=cnt
 
 count=1
 for word in collection_prob.keys() :                                              # P(t|C) 시트
